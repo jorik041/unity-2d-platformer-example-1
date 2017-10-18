@@ -1,6 +1,6 @@
 # Shuma's Awesome Example Project!!!!
 
-This game is an example project of 2d platformer game creation for [Programming Seminar](https://gitlab.com/seisahachioji/programming-seminar-2017) at [Seisa Kokusai High School Hachioji](http://seisa.ed.jp/hachi/).
+This game is an example project of 2d platformer game creation for [Programming Seminar](https://gitlab.com/seisahachioji/programming-seminar-2017) in [Seisa Kokusai High School Hachioji](http://seisa.ed.jp/hachi/).
 
 ## Setup
 
