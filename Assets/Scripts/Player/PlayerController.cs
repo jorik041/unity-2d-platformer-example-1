@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         // 接触したオブジェクトのタグが、設定されたタグと一致する場合
-        if (other.gameObject.tag.Equals(EnemyTag))
+        if (other.gameObject.tag.Equals(EnemyTag) && !IsPhysicalAttack())
         {
             IsDamaged = true; // ダメージを受けたことをフラグで設定する
             OnDamaged();
@@ -168,6 +168,23 @@ public class PlayerController : MonoBehaviour
             transform.position - transform.up * 1.1f,
             GroundLayer
         );
+    }
+
+    private bool IsPhysicalAttack()
+    {
+        // プレイヤーの下に存在するオブジェクトを全て取得する
+        var hits = Physics2D.LinecastAll(
+            transform.position,
+            transform.position - transform.up * 1.1f
+        );
+        foreach (var hit in hits)
+        {   // ひとつずつチェックし、`EnemyTag`と一致するものが存在した場合は中断し`true`を返す
+            if (hit.transform.gameObject.tag.Equals(EnemyTag))
+            {
+                return true;
+            }
+        }
+        return false; // ひとつも`EnemyTag`を持つオブジェクトが存在しない場合`false`を返す
     }
 
     // 歩けるか否か
