@@ -773,6 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpForce: 300
   WalkVelocity: 4
+  FireVelocity: 2
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -782,6 +783,7 @@ MonoBehaviour:
     type: 2}
   GameoverOverlayPrefab: {fileID: 1682513781951338, guid: 14925741efc0b4cbf91567dcb5bcb082,
     type: 2}
+  FirePrefab: {fileID: 1478921987269288, guid: aa09366913e5c43f9bc2b5746bc25d83, type: 2}
 --- !u!1001 &1524489977
 Prefab:
   m_ObjectHideFlags: 0

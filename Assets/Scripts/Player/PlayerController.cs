@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     // 歩く速度が設定される
     public float WalkVelocity;
 
+    // 攻撃の速度が設定される
+    public float FireVelocity;
+
     // フィールドなど着地できるレイヤーが設定される
     public LayerMask GroundLayer;
 
@@ -22,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public GameObject ClearOverlayPrefab;
 
     public GameObject GameoverOverlayPrefab;
+
+    public GameObject FirePrefab;
     
     private Rigidbody2D Body { get; set; }
 
@@ -52,7 +57,19 @@ public class PlayerController : MonoBehaviour
     // `Update`は毎フレームのレンダリング前に実行されるメソッドです
     void Update()
     {
-        // no-op
+        if (!IsDamaged && IsFirePressed())
+        {
+            var fire = Instantiate(
+                FirePrefab,
+                new Vector3(
+                    this.transform.position.x + (PlayerRenderer.size.x / 2) + (FirePrefab.GetComponent<SpriteRenderer>().size.x / 2),
+                    this.transform.position.y,
+                    this.transform.position.z
+                ),
+                Quaternion.identity
+            );
+            fire.GetComponent<Rigidbody2D>().velocity = Vector2.right * FireVelocity;
+        }
     }
     
     // `LateUpdate`は`Update`の後に実行されるメソッドです
@@ -115,6 +132,11 @@ public class PlayerController : MonoBehaviour
     {    
         // `GetButtonDown`はボタンが押された瞬間のみ`true`が返され、押下されている間は考慮しません
         return CrossPlatformInputManager.GetButtonDown("Jump");
+    }
+
+    private bool IsFirePressed()
+    {
+        return CrossPlatformInputManager.GetButtonDown("Fire1");
     }
 
     // 2DのCollisionが何かに触れた際に実行される
