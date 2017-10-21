@@ -123,8 +123,11 @@ public class PlayerController : MonoBehaviour
         // 接触したオブジェクトのタグが、設定されたタグと一致する場合
         if (other.gameObject.tag.Equals(EnemyTag) && !IsPhysicalAttack())
         {
-            IsDamaged = true; // ダメージを受けたことをフラグで設定する
-            OnDamaged();
+            if (!other.gameObject.GetComponent<EnemyController>().IsDestroyed)
+            {
+                IsDamaged = true; // ダメージを受けたことをフラグで設定する
+                OnDamaged();
+            }
         } else if (other.gameObject.tag.Equals(GoalTag))
         {
             OnTouchGoal(other);

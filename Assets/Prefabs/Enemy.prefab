@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkVelocity: 0.5
+  PlayerTag: Player
 --- !u!212 &212259574405135778
 SpriteRenderer:
   m_ObjectHideFlags: 1
