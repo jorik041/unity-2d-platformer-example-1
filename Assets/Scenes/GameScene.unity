@@ -780,6 +780,8 @@ MonoBehaviour:
   GoalTag: Goal
   ClearOverlayPrefab: {fileID: 1355717571634832, guid: cf8b31614ae25499d90140dded19bb02,
     type: 2}
+  GameoverOverlayPrefab: {fileID: 1682513781951338, guid: 14925741efc0b4cbf91567dcb5bcb082,
+    type: 2}
 --- !u!1001 &1524489977
 Prefab:
   m_ObjectHideFlags: 0
@@ -1045,7 +1047,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1880228097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.57, y: 3.06, z: 0}
+  m_LocalPosition: {x: 5.57, y: 3.06, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

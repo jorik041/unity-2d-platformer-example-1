@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
@@ -21,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     // クリア時に表示するPrefabが設定される
     public GameObject ClearOverlayPrefab;
+
+    public GameObject GameoverOverlayPrefab;
     
     private Rigidbody2D Body { get; set; }
 
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     // 生成したOverlayが格納される
     private GameObject ClearOverlay = null;
+
+    private GameObject GameoverOverlay = null;
     
     // `Awake`はオブジェクトが読み込まれた際に実行されるメソッドです
     void Awake()
@@ -121,6 +124,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals(EnemyTag))
         {
             IsDamaged = true; // ダメージを受けたことをフラグで設定する
+            OnDamaged();
         } else if (other.gameObject.tag.Equals(GoalTag))
         {
             OnTouchGoal(other);
@@ -138,6 +142,15 @@ public class PlayerController : MonoBehaviour
         if (ClearOverlay == null)
         {
             ClearOverlay = Instantiate(ClearOverlayPrefab);
+        }
+    }
+
+    private void OnDamaged()
+    {
+        Body.AddForce(Vector2.up * (JumpForce * 2));
+        if (GameoverOverlay == null)
+        {
+            GameoverOverlay = Instantiate(GameoverOverlayPrefab);
         }
     }
 
