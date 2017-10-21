@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkVelocity: 0.5
   PlayerTag: Player
+  FireTag: Fire
 --- !u!212 &212259574405135778
 SpriteRenderer:
   m_ObjectHideFlags: 1

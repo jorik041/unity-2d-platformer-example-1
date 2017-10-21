@@ -9,6 +9,9 @@ public class EnemyController : MonoBehaviour {
 	// プレイヤーなど直接ダメージを受けるタグが設定される
 	public string PlayerTag;
 
+	// 攻撃など遠距離でダメージを受けるタグが設定される
+	public string FireTag;
+	
 	public bool IsDestroyed { get; set; }
 
 	private Rigidbody2D Body { get; set; }
@@ -31,7 +34,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.transform.gameObject.tag.Equals(PlayerTag) && IsUnderPlayer())
+		if (other.transform.gameObject.tag.Equals(FireTag) || (other.transform.gameObject.tag.Equals(PlayerTag) && IsUnderPlayer()))
 		{
 			IsDestroyed = true;
 			Destroy(this.gameObject);
