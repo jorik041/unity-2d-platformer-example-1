@@ -778,6 +778,8 @@ MonoBehaviour:
     m_Bits: 256
   EnemyTag: Enemy
   GoalTag: Goal
+  ClearOverlayPrefab: {fileID: 1355717571634832, guid: cf8b31614ae25499d90140dded19bb02,
+    type: 2}
 --- !u!1001 &1524489977
 Prefab:
   m_ObjectHideFlags: 0
