@@ -21,10 +21,13 @@ public class PlayerController : MonoBehaviour
 
     private Animator PlayerAnimator { get; set; }
 
+    private SpriteRenderer PlayerRenderer { get; set; }
+
     // `Awake`はオブジェクトが読み込まれた際に実行されるメソッドです
     void Awake()
     {
         PlayerAnimator = GetComponent<Animator>();
+        PlayerRenderer = GetComponent<SpriteRenderer>();
         Body = GetComponent<Rigidbody2D>(); // オブジェクトにアタッチされているRigidbody2Dのコンポーネントを取得
         IsDamaged = false; // 初期化時点ではまだダメージを受けていない
     }
@@ -61,6 +64,12 @@ public class PlayerController : MonoBehaviour
 
             Body.velocity = new Vector2(velocityX * WalkVelocity, Body.velocity.y);
             IsWalking = isWalking;
+
+            if (velocityX != 0)
+            {
+                bool isRight = velocityX > 0;
+                PlayerRenderer.flipX = !isRight;
+            }
         }
 
         if (CanJump() && IsJumpPressed())
