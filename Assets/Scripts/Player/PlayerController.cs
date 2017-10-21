@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     // 敵などダメージを受けるタグが設定される
     public string EnemyTag;
+
+    public string GoalTag;
     
     private Rigidbody2D Body { get; set; }
 
@@ -112,11 +114,19 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag.Equals(EnemyTag))
         {
             IsDamaged = true; // ダメージを受けたことをフラグで設定する
+        } else if (other.gameObject.tag.Equals(GoalTag))
+        {
+            OnTouchGoal(other);
         }
         if (IsGrounded())
         {
             IsJumping = false;
         }
+    }
+
+    private void OnTouchGoal(Collision2D other)
+    {
+        Destroy(other.gameObject);
     }
 
     // ジャンプすることが可能か否か
