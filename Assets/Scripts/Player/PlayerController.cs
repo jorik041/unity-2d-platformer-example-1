@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Animations;
+using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
@@ -18,12 +19,12 @@ public class PlayerController : MonoBehaviour
     
     private Rigidbody2D Body { get; set; }
 
-    // プレイヤーが既にダメージを受けたか否か
-    private bool IsDamaged { get; set; }
+    private Animator PlayerAnimator { get; set; }
 
     // `Awake`はオブジェクトが読み込まれた際に実行されるメソッドです
     void Awake()
     {
+        PlayerAnimator = GetComponent<Animator>();
         Body = GetComponent<Rigidbody2D>(); // オブジェクトにアタッチされているRigidbody2Dのコンポーネントを取得
         IsDamaged = false; // 初期化時点ではまだダメージを受けていない
     }
@@ -57,14 +58,27 @@ public class PlayerController : MonoBehaviour
             bool isWalking = x != 0;
 
             float velocityX = isWalking ? x : 0;
-            
+
             Body.velocity = new Vector2(velocityX * WalkVelocity, Body.velocity.y);
+            IsWalking = isWalking;
         }
 
         if (CanJump() && IsJumpPressed())
         {
             // `Rigidbody2D`に上方向の力を加えます
             Body.AddForce(Vector2.up * JumpForce);
+            IsJumping = true;
+        }
+
+        if (!IsGrounded())
+        {
+            IsUp = Body.velocity.y > 0;
+            IsDown = !IsDown;
+        }
+        else
+        {
+            IsUp = false;
+            IsDown = false;
         }
     }
 
@@ -91,6 +105,10 @@ public class PlayerController : MonoBehaviour
         {
             IsDamaged = true; // ダメージを受けたことをフラグで設定する
         }
+        if (IsGrounded())
+        {
+            IsJumping = false;
+        }
     }
 
     // ジャンプすることが可能か否か
@@ -112,7 +130,35 @@ public class PlayerController : MonoBehaviour
     // 歩けるか否か
     private bool CanWalk()
     {
-        return !IsDamaged; // `IsDestroyed`のフラグを`!`で反転させる
+        return !IsDamaged; // `IsDamaged`のフラグを`!`で反転させる
+    }
+
+    private bool IsWalking
+    {
+        get { return PlayerAnimator.GetBool("IsWalking"); }
+        set { PlayerAnimator.SetBool("IsWalking", value); }
+    }
+
+    private bool IsJumping
+    {
+        get { return PlayerAnimator.GetBool("IsJumping"); }
+        set { PlayerAnimator.SetBool("IsJumping", value); }
+    }
+
+    private bool IsUp
+    {
+        get { return PlayerAnimator.GetBool("IsUp"); }
+        set { PlayerAnimator.SetBool("IsUp", value); }
+    }
+    
+    private bool IsDown {
+        get { return PlayerAnimator.GetBool("IsDown"); }
+        set { PlayerAnimator.SetBool("IsDown", value); }
+    }
+    
+    private bool IsDamaged {
+        get { return PlayerAnimator.GetBool("IsDamaged"); }
+        set { PlayerAnimator.SetBool("IsDamaged", value); }
     }
 
 }
